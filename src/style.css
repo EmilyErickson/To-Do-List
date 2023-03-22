@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+#content {
+    background-color: lightseagreen;
+    height: 100vh;
+    display: grid;
+}
+
+.taskContainer {
+    background-color: lightblue;
+    height: 50vh;
+    width: 80vw;
+    padding: 5px;
+    place-self: center;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px; */
+}
+
+.mainTitle {
+    width: 100vw;
+    font-size: 3rem;
+    background-color: lightgray;
+    text-align: center;
+    place-self: center;
+}
+
+.taskButton {
+    background-color: lightpink;
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+}
+
+.taskInfoForm {
+    height: 300px;
+    width: 200px;
+    background-color: lightskyblue;
+    margin: 0 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.task {
+    background-color: lightcyan;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* width: 100px;
+    height: 125px;
+    margin: 5px; */
+}
+
+.projectsDiv {
+    background-color: lightcoral;
+}
