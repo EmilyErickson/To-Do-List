@@ -94,12 +94,38 @@ body {
     display: none; 
     grid-template-rows: repeat(6, 1fr);
 }
-.newTask select {
+.newTask select, .editTask select {
     font-family: "Merienda";
     font-size: 1.3rem;
     background-color: var(--clr-main);
     color: var(--clr-light);
 }
+
+.editTask {
+    background: transparent;
+    border: 3px solid var(--clr-dark);
+    border-radius: 25px;
+    color: inherit; 
+    font-family: "Merienda";   
+    border-bottom: 1px solid currentColor;
+    font-size: inherit;
+    outline: none;
+    padding: 5px;
+    padding: 10px;
+    display: none; 
+    grid-template-rows: repeat(6, 1fr) 25px;
+
+    transition: border-bottom 250ms ease-in;
+}
+.editTitle {
+    background-color: var(--clr-light);
+    font-size: 2rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .btn {
     cursor: pointer;
@@ -149,7 +175,7 @@ body {
 
 
 .taskContainer {
-    --spacer: 2rem;
+    --spacer: 2rem 1rem;
     position: relative;
 
     grid-area: active;
@@ -188,7 +214,7 @@ body {
 .taskLabel {
     display: grid;
     gap: 15px;
-    grid-template-columns: 20px 25px .75fr 1fr 1fr 1fr;
+    grid-template-columns: 15px 20px .75fr 1fr 1fr 1fr 50px 50px;
     align-items: center;
     position: relative;
     margin-right: 15px;
@@ -217,12 +243,17 @@ body {
 .Low {
     background-color: #22c55e;
 }
-
+.taskEdit, .taskDelete {
+    width: 50px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .task {
     position: relative;
     margin-bottom: 15px;
-
 }
 
 .task::after {
