@@ -101,6 +101,57 @@ newTask.append(
 );
 taskContainer.append(newTaskButton, newTask);
 
+let editTask = document.createElement("form");
+editTask.classList.add("editTask");
+
+let editTaskTitle = document.createElement("div");
+editTaskTitle.classList.add("task", "editTitle");
+editTaskTitle.textContent = "Edit Task";
+
+let editTaskInput = document.createElement("input");
+editTaskInput.classList.add("new", "task");
+editTaskInput.ariaLabel = "new task name";
+
+let editTaskDescription = document.createElement("input");
+editTaskDescription.classList.add("new", "task", "description");
+
+let editValues = ["High", "Medium", "Low"];
+let editTaskPriority = document.createElement("select");
+editTaskPriority.name = "priorities";
+editTaskPriority.classList.add("taskFormText", "priority");
+for (let val of editValues) {
+  let option = document.createElement("option");
+  option.value = val;
+  option.textContent = val.charAt(0).toUpperCase() + val.slice(1);
+  editTaskPriority.appendChild(option);
+}
+
+let editTaskDueDate = document.createElement("input");
+editTaskDueDate.setAttribute("type", "date");
+editTaskDueDate.classList.add("new", "task", "date");
+
+let editTaskSave = document.createElement("button");
+editTaskSave.textContent = "Save Task";
+editTaskSave.classList.add("new", "task", "createTask");
+
+function taskEditFunction(editTitle, editDescription, editPriority, editDate) {
+  editTaskInput.value = editTitle;
+  editTaskDescription.value = `${editDescription}`;
+  editTaskPriority.value = `${editPriority}`;
+  editTaskDueDate.value = `${editDate}`;
+
+  editTask.append(
+    editTaskTitle,
+    editTaskInput,
+    editTaskDescription,
+    editTaskPriority,
+    editTaskDueDate,
+    editTaskSave
+  );
+}
+
+taskContainer.append(editTask);
+
 //delete buttons
 
 let deleteDiv = document.createElement("div");
@@ -132,5 +183,11 @@ export {
   newTaskDescription,
   newTaskPriority,
   newTaskDueDate,
+  taskEditFunction,
+  editTask,
+  editTaskInput,
+  editTaskDescription,
+  editTaskPriority,
+  editTaskDueDate,
   deleteCompleted,
 };
