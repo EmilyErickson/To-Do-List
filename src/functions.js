@@ -13,6 +13,12 @@ import {
   newTaskDescription,
   newTaskPriority,
   newTaskDueDate,
+  taskEditFunction,
+  editTask,
+  editTaskInput,
+  editTaskDescription,
+  editTaskPriority,
+  editTaskDueDate,
   deleteCompleted,
 } from "./ui.js";
 
@@ -86,7 +92,6 @@ newListForm.addEventListener("submit", (e) => {
 });
 
 createNewTask.addEventListener("click", () => {
-  console.log("newTask");
   newTaskForm.style.display = "grid";
 });
 
@@ -112,7 +117,7 @@ newTaskForm.addEventListener("submit", (e) => {
 });
 
 function createList(listName) {
-  console.log(listName);
+  // console.log(listName);
   return {
     id: Date.now().toString(),
     name: listName,
@@ -147,7 +152,6 @@ function render() {
   const selectedList = lists.find((list) => list.id === selectedListId);
   if (selectedListId === null) {
     let selectedList = lists.find((list) => list.id === "home");
-    console.log(selectedList);
     selectedListId = "home";
     listDisplayContainer.style.display = "";
     listTitleElement.textContent = selectedList.name;
@@ -188,17 +192,73 @@ function renderTasks(selectedList) {
     taskElementPriority.textContent = `Priority: ${task.priority}`;
     let taskElementDate = document.createElement("div");
     taskElementDate.textContent = `${task.date}`;
+    let taskEditBtn = document.createElement("button");
+    taskEditBtn.classList.add("taskEdit");
+    taskEditBtn.textContent = "Edit";
+    let taskDeleteBtn = document.createElement("button");
+    taskDeleteBtn.classList.add("taskDelete");
+    taskDeleteBtn.textContent = "Delete";
+
+    taskEditBtn.addEventListener("click", () => {
+      editTask.style.display = "grid";
+      taskEdit(task.id);
+    });
+    taskDeleteBtn.addEventListener("click", () => {
+      deleteTask(task.id);
+    });
+
     taskCheckboxLabel.append(
       taskPriorityDiv,
       taskCheckboxSpan,
       taskLabelText,
       taskElementDescription,
       taskElementPriority,
-      taskElementDate
+      taskElementDate,
+      taskEditBtn,
+      taskDeleteBtn
     );
     taskElement.append(taskCheckbox, taskCheckboxLabel);
     taskList.appendChild(taskElement);
   });
+}
+
+function taskEdit(selectedTask) {
+  const selectedList = lists.find((list) => list.id === selectedListId);
+  let task = selectedList.tasks.find((task) => task.id === selectedTask);
+  console.log(task);
+  taskEditFunction(task.name, task.description, task.priority, task.date);
+
+  selectedList.tasks = selectedList.tasks.filter(
+    (task) => task.id !== selectedTask
+  );
+}
+
+editTask.addEventListener("submit", (e) => {
+  e.preventDefault();
+  editTask.style.display = "none";
+  let editedName = editTaskInput.value;
+  let editedDescription = editTaskDescription.value;
+  let editedPriority = editTaskPriority.value;
+  let editedDate = editTaskDueDate.value;
+
+  let task = createTask(
+    editedName,
+    editedDescription,
+    editedDate,
+    editedPriority
+  );
+
+  let selectedList = lists.find((list) => list.id === selectedListId);
+  selectedList.tasks.push(task);
+  saveAndRender();
+});
+
+function deleteTask(selectedTask) {
+  const selectedList = lists.find((list) => list.id === selectedListId);
+  selectedList.tasks = selectedList.tasks.filter(
+    (task) => task.id !== selectedTask
+  );
+  saveAndRender();
 }
 
 function renderTaskCount(selectedList) {
